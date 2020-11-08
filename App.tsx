@@ -20,7 +20,6 @@ export default function App() {
   return (
     <View style={styles.root}>
       <Routes />
-      <Text>Ouoh</Text>
       <StatusBar style="dark"  />
     </View>
   );
