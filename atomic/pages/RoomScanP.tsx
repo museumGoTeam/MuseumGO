@@ -1,14 +1,16 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
+import { useDispatch } from '../../container/store'
 import useClient from '../../hooks/useClient'
 import QRCodeScanT from '../templates/QRCodeScanT'
 
 const RoomScanP = () => {
     const client = useClient()
+    const dispatch  = useDispatch() 
 
     const onRoomScan = async (data: string) => {
         const room = await client.getRoom(data)
-        console.log(room)
+        if (room) dispatch({type: "GET_ROOM", payload: room})
     }
 
 

@@ -12,5 +12,5 @@ export interface IAction {
 }
 
 
-type TActionType = ""
-type TPayload = ""
+type TActionType = "GET_ROOM"
+type TPayload = IRoom
