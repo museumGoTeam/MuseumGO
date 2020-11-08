@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Provider as PaperProvider } from "react-native-paper";
+import Snackbar from './atomic/atoms/Snackbar'
 import theme from "./theme";
 import SplashP from "./atomic/pages/SplashP";
 import StepsP from "./atomic/pages/StepsP";
@@ -31,6 +32,7 @@ const Routes = () => {
             )}
         </Stack.Navigator>
       </NavigationContainer>
+      <Snackbar />
     </PaperProvider>
   );
 };

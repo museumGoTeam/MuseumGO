@@ -3,7 +3,9 @@ import { StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import { AppLoading } from 'expo';
+import StoreProvider from './container/store'
 import Routes from './Routes';
+
 
 
 export default function App() {
@@ -19,7 +21,9 @@ export default function App() {
 
   return (
     <View style={styles.root}>
-      <Routes />
+      <StoreProvider>
+        <Routes />
+      </StoreProvider>
       <StatusBar style="dark"  />
     </View>
   );
