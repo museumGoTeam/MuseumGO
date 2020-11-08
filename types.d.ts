@@ -1,5 +1,5 @@
 export interface APIRes {
-    message: boolean
+    message: string
     success: boolean
     data: IMap | IPoi | IRoom
 }

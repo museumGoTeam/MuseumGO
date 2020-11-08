@@ -7,6 +7,7 @@ import StoreProvider from './container/store'
 import Routes from './Routes';
 
 
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     'Tesla': require('./assets/fonts/TESLA.ttf'),

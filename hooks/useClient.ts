@@ -1,15 +1,19 @@
-import { APIRes, IRoom } from "../types"
+import Message from "../atomic/atoms/Snackbar"
 import axios from 'axios'
+import { APIRes, IRoom } from "../types"
+
+
 
 const URI: string = "http://4a921379a9cd.ngrok.io/api"
 
 
 function getInfo<T>(res: APIRes): T | void  {
     if (res.success) {
-        console.log("Success !")
+        Message.success(res.message)
         if (res.data) return res.data as T
         return
-    } 
+    }
+    Message.error(res.message)
 }
 
 export default function useClient() {
