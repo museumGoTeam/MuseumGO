@@ -20,7 +20,6 @@ const QRCodeScanT: React.FC<QRCodeScanprops> = ({onScanned}) => {
     }, [])
 
     const handleScan = ({type, data, cornerPoints}: BarCodeScannerResult) => {
-        console.log(cornerPoints)
         if (scaned) return
         setScanned(true)
         onScanned(data)

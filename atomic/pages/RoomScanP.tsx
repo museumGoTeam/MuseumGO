@@ -1,11 +1,14 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
+import useClient from '../../hooks/useClient'
 import QRCodeScanT from '../templates/QRCodeScanT'
 
 const RoomScanP = () => {
+    const client = useClient()
 
-    const onRoomScan = (data: string) => {
-        console.log(data)
+    const onRoomScan = async (data: string) => {
+        const room = await client.getRoom(data)
+        console.log(room)
     }
 
 
