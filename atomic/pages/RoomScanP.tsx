@@ -10,7 +10,6 @@ const RoomScanP = () => {
 
     const onRoomScan = async (data: string) => {
         const room = await client.getRoom(data)
-        console.log(room)
         if (room) dispatch({type: "GET_ROOM", payload: room})
     }
 
