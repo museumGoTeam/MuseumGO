@@ -95,7 +95,7 @@ const Snackbar: React.FC<SnackbarProps & {text: string, unmountComponent: () => 
   return (
     <Animated.View style={[style.root, {top: moveAnim}]}>
       <View style={style.container}>
-        {renderIcon(type)}
+          <MaterialIcons name="info" size={24} style={{ color: "#1890ff" }} />
         <Text style={style.message}>{text}</Text>
       </View>
     </Animated.View>
