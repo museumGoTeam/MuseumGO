@@ -4,7 +4,7 @@ import { APIRes, IRoom } from "../types"
 
 
 
-const URI: string = "http://81268dceb285.ngrok.io/api"
+const URI: string = "http://192.168.1.31/api"
 
 
 function getInfo<T>(res: APIRes): T | void  {

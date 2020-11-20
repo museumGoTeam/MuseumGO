@@ -26,8 +26,8 @@ const SplashT: React.FC<SplashTProps> = ({title, subtitle, children}) => {
           colors={[theme.colors.primary, theme.colors.secondary]}
           style={[StyleSheet.absoluteFill]} 
           /> 
-          <Typography variant="h3" style={styles.title}>{utils.locale(title)}</Typography>
-          <Typography style={styles.subtitle}>{utils.locale(subtitle)}</Typography>
+          <Typography variant="h3" style={styles.title}>MuseumGO</Typography>
+          <Typography style={styles.subtitle}>The information indoor tracking learning</Typography>
           {
             children
           }
