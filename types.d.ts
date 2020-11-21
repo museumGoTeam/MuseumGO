@@ -2,6 +2,10 @@ export interface IDocument {
     _id: string
 }
 
+export interface IWithName {
+    name: string
+}
+
 export interface APIRes<T> {
     message: string
     success: boolean
@@ -29,8 +33,7 @@ export interface ICell {
     relativePos: IPos
 }
 
-export interface IPOI extends IDocument {
-    name: string
+export interface IPOI extends IDocument, IWithName {
     description: string
     image: string
     pos: IPos

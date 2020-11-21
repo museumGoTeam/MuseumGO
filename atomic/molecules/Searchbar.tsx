@@ -29,6 +29,8 @@ export default function Searchbar({
         placeholder="Search for a point of interest"
         value={value}
         onChangeText={onChangeText}
+        autoCorrect={false}
+        autoCompleteType="off"
         style={styles.input}
       />
     </View>
