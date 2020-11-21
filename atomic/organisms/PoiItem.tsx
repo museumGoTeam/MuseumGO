@@ -5,13 +5,20 @@ import Avatar from '../atoms/Avatar'
 import CardA from '../atoms/CardA'
 import Typography from '../atoms/Typography'
 
-export default function PoiItem() {
+
+type PoiItemProps = {
+    img: string,
+    name: string
+}
+
+
+export default function PoiItem({img, name}: PoiItemProps) {
     const theme = useTheme()
     const styles = useStyles(theme)
     return (
         <CardA style={styles.root}>
-            <Avatar style={styles.image} src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/1200px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"/>
-            <Typography style={styles.title}>Mona lisa</Typography>
+            <Avatar style={styles.image} src={img}/>
+            <Typography style={styles.name}>{name}</Typography>
         </CardA>
     )
 }
@@ -24,7 +31,8 @@ const useStyles = (theme: ReactNativePaper.Theme) => StyleSheet.create({
         width: theme.utils.wp2dp(50),
         paddingVertical: theme.utils.hp2dp(5),
         borderTopRightRadius: 32,
-        borderBottomRightRadius: 32
+        borderBottomRightRadius: 32,
+        marginVertical: theme.utils.hp2dp(1)
     },
     image: {
         position: 'absolute',
@@ -32,7 +40,7 @@ const useStyles = (theme: ReactNativePaper.Theme) => StyleSheet.create({
         width: 80,
         height: 80
     },
-    title: {
+    name: {
         flex: 1,
         paddingLeft: theme.utils.wp2dp(12),
         fontSize: theme.utils.wp2dp(4)

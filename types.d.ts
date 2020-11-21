@@ -1,9 +1,17 @@
+export interface IDocument {
+    _id: string
+}
+
 export interface APIRes<T> {
     message: string
     success: boolean
     data: T
 }
 
+export interface IAPIState<T> {
+    loading: boolean,
+    data: T | undefined
+}
 export interface APIResGetMap {
     map: TEntityNumber[][],
     pois: IPOI[],
@@ -21,16 +29,14 @@ export interface ICell {
     relativePos: IPos
 }
 
-export interface IPOI {
-    _id: string,
+export interface IPOI extends IDocument {
     name: string
-    description?: string
-    image?: string | File
+    description: string
+    image: string
     pos: IPos
 }
 
-export interface IRoom {
-    _id: string,
+export interface IRoom extends IDocument{
     label: string
     pos: IPos
 }
