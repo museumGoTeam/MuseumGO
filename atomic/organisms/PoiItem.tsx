@@ -1,21 +1,24 @@
 import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { useTheme } from "react-native-paper";
+import { IPOI } from "../../types";
 import Avatar from "../atoms/Avatar";
 import CardA from "../atoms/CardA";
 import Skeleton from "../atoms/Skeleton";
 import Typography from "../atoms/Typography";
+import PoiSelectModal from "./PoiSelectModal";
 
-type PoiItemProps = {
-  img?: string;
-  name?: string;
-};
+type PoiItemProps = IPOI | {}
 
-export default function PoiItem({ img, name }: PoiItemProps) {
+export default function PoiItem(poi: PoiItemProps) {
   const theme = useTheme();
   const styles = useStyles(theme);
+  const [modalOpen, setModalOpen] = React.useState(false);
 
-  if (!img && !name) {
+  const onOpen = () => setModalOpen(true);
+  const onClose = () => setModalOpen(false);
+
+  if (!("_id" in poi)) {
     return (
       <Skeleton variant="rect" style={styles.root}>
         <Skeleton variant="circle" style={styles.image} />
@@ -25,10 +28,13 @@ export default function PoiItem({ img, name }: PoiItemProps) {
   }
 
   return (
-    <CardA style={styles.root}>
-      {img && <Avatar style={styles.image} src={img} /> }
-      <Typography style={styles.name}>{name}</Typography>
-    </CardA>
+    <>
+      {modalOpen && <PoiSelectModal open={modalOpen} onClose={onClose} poi={poi as IPOI} />}
+      <CardA onPress={onOpen}  style={styles.root}>
+        <Avatar style={styles.image} src={poi.image} />
+        <Typography style={styles.name}>{poi.name}</Typography>
+      </CardA>
+    </>
   );
 }
 

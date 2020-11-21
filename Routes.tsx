@@ -8,6 +8,7 @@ import SplashP from "./atomic/pages/SplashP";
 import StepsP from "./atomic/pages/StepsP";
 import RoomScanP from "./atomic/pages/RoomScanP";
 import PoiP from "./atomic/pages/PoiP";
+import ItineraryP from "./atomic/pages/ItineraryP";
 
 const Stack = createStackNavigator();
 
@@ -18,7 +19,7 @@ const Routes = () => {
     <PaperProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="PoiList"
+          initialRouteName="Splash"
           screenOptions={{ headerShown: false }}
         >
           {loading ? (
@@ -30,6 +31,7 @@ const Routes = () => {
                 <Stack.Screen name="Steps" component={StepsP} />
                 <Stack.Screen name="RoomScan" component={RoomScanP} />
                 <Stack.Screen name="PoiList" component={PoiP} />
+                <Stack.Screen name="Itinerary" component={ItineraryP} />
               </>
             )}
         </Stack.Navigator>

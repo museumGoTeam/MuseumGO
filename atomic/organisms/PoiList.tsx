@@ -18,7 +18,7 @@ export default function PoiList({ data }: PoiListProps) {
       contentContainerStyle={styles.scrollContainer}
     >
       {data.map((poi) => (
-        <PoiItem key={poi._id} img={poi.image} name={poi.name} />
+        <PoiItem key={poi._id} {...poi} />
       ))}
     </ScrollView>
   );

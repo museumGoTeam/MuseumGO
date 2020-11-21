@@ -51,7 +51,7 @@ const StepsP = () => {
         }
       </Tab.Navigator>
       {
-        currentStep < 6 ?   <StepBullets activeStep={currentStep} /> : <Button label="Get ready to learn" onPress={onStepsFinished} />
+        currentStep < 6 ?   <StepBullets activeStep={currentStep} /> : <Button label="Get ready to learn" onPress={onStepsFinished} labelStyle={{color: "white"}} />
       }
 
     </View>

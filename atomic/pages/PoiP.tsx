@@ -1,8 +1,10 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { useTheme } from "react-native-paper";
+import { useSelector } from "react-redux";
 import useClient from "../../hooks/useClient";
 import useFilter from "../../hooks/useFilter";
+import { IAppState } from "../../store/types";
 import { IAPIState, IPOI } from "../../types";
 import Searchbar from "../molecules/Searchbar";
 import PoiList from "../organisms/PoiList";
