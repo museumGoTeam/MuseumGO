@@ -4,14 +4,18 @@ import { useDispatch } from 'react-redux'
 import {onLocateRoom} from '../../store/reducer'
 import useClient from '../../hooks/useClient'
 import QRCodeScanT from '../templates/QRCodeScanT'
+import { useNavigation } from '@react-navigation/native'
 
 const RoomScanP = () => {
     const client = useClient()
     const dispatch = useDispatch()
-
+    const navigation = useNavigation()
     const onRoomScan = async (data: string) => {
         const room = await client.getRoom(data)
-        if (room) dispatch(onLocateRoom(room))
+        if (room) {
+            navigation.navigate("PoiList")
+            dispatch(onLocateRoom(room))
+        }
     }
 
 
