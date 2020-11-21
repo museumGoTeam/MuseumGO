@@ -1,7 +1,7 @@
-export interface APIRes {
+export interface APIRes<T> {
     message: string
     success: boolean
-    data: IMap | IPoi | IRoom
+    data: T
 }
 
 export interface APIResGetMap {
