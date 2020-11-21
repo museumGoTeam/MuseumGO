@@ -34,6 +34,7 @@ const useStyles = (theme: ReactNativePaper.Theme) => StyleSheet.create({
     },
     title: {
         flex: 1,
-        paddingLeft: theme.utils.wp2dp(12)
+        paddingLeft: theme.utils.wp2dp(12),
+        fontSize: theme.utils.wp2dp(4)
     }
 })
