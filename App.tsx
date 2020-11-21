@@ -3,10 +3,14 @@ import { StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import { AppLoading } from 'expo';
-import StoreProvider from './container/store'
+import {configureStore} from '@reduxjs/toolkit'
+import {Provider} from 'react-redux'
+import reducer from './store/reducer'
 import Routes from './Routes';
 
 
+
+const store = configureStore({reducer})
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -21,9 +25,9 @@ export default function App() {
 
   return (
     <View style={styles.root}>
-      <StoreProvider>
+      <Provider store={store}>
         <Routes />
-      </StoreProvider>
+      </Provider>
       <StatusBar style="dark"  />
     </View>
   );
