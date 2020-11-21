@@ -23,8 +23,7 @@ export default function useClient() {
         },
         getPois: async (): Promise<IPOI[] | undefined> => {
             const res = (await axios.get<APIRes<IPOI[]>>(`${URI}/poi`)).data
-            console.log(res)
-            return getInfo<IPOI[]>(res)
+            return res.data
         }
     }
 }

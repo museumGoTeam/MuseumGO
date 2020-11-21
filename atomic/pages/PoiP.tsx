@@ -1,10 +1,12 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import useClient from "../../hooks/useClient";
 import { IAPIState, IPOI } from "../../types";
+import Skeleton from "../atoms/Skeleton";
 import Searchbar from "../molecules/Searchbar";
-import PoiItem from "../organisms/PoiItem";
+import PoiList from "../organisms/PoiList";
+import PoiT from "../templates/PoiT";
 
 export default function PoiP() {
   const theme = useTheme();
@@ -25,17 +27,9 @@ export default function PoiP() {
   return (
     <View style={styles.root}>
       <Searchbar style={styles.searchbar} />
-      {pois.loading ? (
-        <Text>Loading ...</Text>
-      ) : (
-        pois.data && (
-          <ScrollView>
-            {pois.data.map((poi) => (
-              <PoiItem key={poi._id} img={poi.image} name={poi.name} />
-            ))}
-          </ScrollView>
-        )
-      )}
+      {
+        !pois.loading && pois.data ? <PoiList data={pois.data} /> : <PoiT />
+      }
     </View>
   );
 }
@@ -45,9 +39,9 @@ const useStyles = (theme: ReactNativePaper.Theme) =>
     root: {
       flex: 1,
       paddingVertical: 40,
-      paddingHorizontal: 32,
     },
     searchbar: {
       marginBottom: theme.utils.hp2dp(4),
+      alignSelf: "center",
     },
   });
