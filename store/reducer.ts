@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IAppState } from "./types";
 import { IPOI, IRoom } from "../types";
+import Message from "../atomic/atoms/Snackbar";
 
 
 
@@ -15,6 +16,7 @@ const slice = createSlice({
   reducers: {
     onLocateRoom(state, action: PayloadAction<IRoom>) {
         const room = action.payload
+        Message.info(`You are in the room : ${room.label}`)
         state.roomLocated = room
     },
     onSelectPoi(state, action: PayloadAction<IPOI>) {
