@@ -2,19 +2,24 @@ import React from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import SplashT from "../templates/SplashT";
 import { useTheme } from "react-native-paper";
+import useClient from "../../hooks/useClient";
+import { useDispatch } from "react-redux";
+import {onInit} from '../../store/reducer'
 
-type SplashP = {
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
-}
 
-const SplashP: React.FC<SplashP> = ({setLoading}) => {
+const SplashP: React.FC = () => {
   const theme = useTheme()
   const styles = useStyles(theme)
+  const client = useClient()
+  const dispatch = useDispatch()
   
   React.useEffect(() => {
-    const timeout = setTimeout(() => setLoading(false), 3000)  //Simulate a fetch to the server
-    return () => clearTimeout(timeout)
-  }, []) 
+    (async () => {
+        const status = await client.checkCon()
+        if (status) dispatch(onInit())
+      }
+    )()
+  }, [client, dispatch, onInit]) 
 
   return (
     <View style={styles.root}>
