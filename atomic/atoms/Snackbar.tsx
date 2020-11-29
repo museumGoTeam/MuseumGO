@@ -5,6 +5,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 type SnackbarProps = {
   type?: "success" | "error" | "warning" | "information";
+  persist: boolean
 };
 
 const renderIcon = (type: "success" | "error" | "warning" | "information") => {
@@ -38,6 +39,7 @@ class Message extends React.Component<
     visible: boolean;
     text: string;
     type: "success" | "error" | "warning" | "information";
+    persist: boolean;
   }
 > {
   static myself: Message;
@@ -48,6 +50,7 @@ class Message extends React.Component<
       visible: false,
       type: "success",
       text: "",
+      persist: false
     };
     Message.myself = this;
   }
@@ -58,16 +61,16 @@ class Message extends React.Component<
     Message.myself._show("success", text);
   }
 
-  static error(text: string) {
-    Message.myself._show("error", text)
+  static error(text: string, persist: boolean = false) {
+    Message.myself._show("error", text, persist)
   }
 
   static info(text: string) {
     Message.myself._show("information", text)
   }
 
-  _show(type: "success" | "error" | "warning" | "information", text: string) {
-    this.setState({ visible: true, type, text });
+  _show(type: "success" | "error" | "warning" | "information", text: string, persist: boolean = false) {
+    this.setState({ visible: true, type, text, persist });
   }
 
   unMountComponent() {
@@ -75,19 +78,19 @@ class Message extends React.Component<
   }
 
   render() {
-    if (this.state.visible) return <Snackbar type={this.state.type} text={this.state.text} unmountComponent={this.unMountComponent.bind(this)} />;
+    if (this.state.visible) return <Snackbar type={this.state.type} text={this.state.text} unmountComponent={this.unMountComponent.bind(this)} persist={this.state.persist} />;
     return <View></View>
   }
 }
 
-const Snackbar: React.FC<SnackbarProps & {text: string, unmountComponent: () => void}> = ({ type = "success",text, unmountComponent }) => {
+const Snackbar: React.FC<SnackbarProps & {text: string, unmountComponent: () => void}> = ({ type = "success",text, unmountComponent, persist }) => {
   const moveAnim = React.useRef(new Animated.Value(0)).current
   const theme = useTheme();
   const style = useStyles(theme);
   
   React.useEffect(() => {
     Animated.timing(moveAnim, {toValue: 64, duration: 100, useNativeDriver: false}).start()
-    const timeout = setTimeout(unmountComponent, 3000)
+    const timeout = setTimeout(persist ? () => {} : unmountComponent, 3000)
     return () => clearTimeout(timeout)
   }, [moveAnim])
 
@@ -95,7 +98,7 @@ const Snackbar: React.FC<SnackbarProps & {text: string, unmountComponent: () => 
   return (
     <Animated.View style={[style.root, {top: moveAnim}]}>
       <View style={style.container}>
-          <MaterialIcons name="info" size={24} style={{ color: "#1890ff" }} />
+          {renderIcon(type)}
         <Text style={style.message}>{text}</Text>
       </View>
     </Animated.View>

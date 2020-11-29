@@ -9,11 +9,13 @@ import StepsP from "./atomic/pages/StepsP";
 import RoomScanP from "./atomic/pages/RoomScanP";
 import PoiP from "./atomic/pages/PoiP";
 import ItineraryP from "./atomic/pages/ItineraryP";
+import { useSelector } from "react-redux";
+import { IAppState } from "./store/types";
 
 const Stack = createStackNavigator();
 
 const Routes = () => {
-  const [loading, setLoading] = React.useState<boolean>(true); //When the fetch is finished, the application will display the content
+  const connected = useSelector((state: IAppState) => state.connected)
 
   return (
     <PaperProvider theme={theme}>
@@ -22,10 +24,8 @@ const Routes = () => {
           initialRouteName="Splash"
           screenOptions={{ headerShown: false }}
         >
-          {loading ? (
-            <Stack.Screen name="Splash">
-              {() => <SplashP setLoading={setLoading} />}
-            </Stack.Screen>
+          {!connected ? (
+            <Stack.Screen name="Splash" component={SplashP} />
           ) : (
               <>
                 <Stack.Screen name="Steps" component={StepsP} />

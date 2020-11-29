@@ -49,3 +49,10 @@ export interface IMap {
     pois: IPOI[],
     rooms: IRoom[]
 }
+
+export interface ItineraryPos {
+    roomPos: Pos,
+    poiPos: Pos
+}
+
+export type TEntityNumber = 0 | 1 | 2 | 3 | 4 | 5
