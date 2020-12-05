@@ -5,7 +5,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 type SnackbarProps = {
   type?: "success" | "error" | "warning" | "information";
-  persist: boolean
+  persist?: boolean
 };
 
 const renderIcon = (type: "success" | "error" | "warning" | "information") => {
