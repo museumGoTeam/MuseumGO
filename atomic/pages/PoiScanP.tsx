@@ -14,6 +14,7 @@ export default function PoiScanP() {
     const poiSelected = useSelector((state: IAppState) => state.poiSelected)
 
     const onPoIScan = (poiID: string) => {
+        console.log("OUOH")
         if (poiSelected) {
             if (poiSelected._id !== poiID) {
                 Message.error("You didn't select this point of interest")

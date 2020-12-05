@@ -6,6 +6,9 @@ import {
   BarCodeScannerResult,
   PermissionStatus,
 } from "expo-barcode-scanner";
+import { useDispatch, useSelector } from "react-redux";
+import { onScan } from "../../store/reducer";
+import { IAppState } from "../../store/types";
 
 type QRCodeScanprops = {
   onScanned: (data: string) => void;
@@ -13,10 +16,9 @@ type QRCodeScanprops = {
 };
 
 const QRCodeScanT: React.FC<QRCodeScanprops> = ({ onScanned, style}) => {
-  const [permission, setPermission] = React.useState<PermissionStatus>(
-    PermissionStatus.UNDETERMINED
-  );
-  const [dataScanned, setDataScanned] = React.useState<string | undefined>("");
+  const [permission, setPermission] = React.useState<PermissionStatus>(PermissionStatus.UNDETERMINED);
+  const dispatch = useDispatch()
+  const dataScanned = useSelector((state: IAppState) => state.dataScanned)
 
   React.useEffect(() => {
     (async () => {
@@ -31,7 +33,6 @@ const QRCodeScanT: React.FC<QRCodeScanprops> = ({ onScanned, style}) => {
 
   const handleScan = ({ type, data, cornerPoints }: BarCodeScannerResult) => {
     if (dataScanned !== data) {
-      setDataScanned(data);
       onScanned(data);
     }
   };
