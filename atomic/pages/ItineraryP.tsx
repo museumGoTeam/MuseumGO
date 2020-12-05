@@ -8,6 +8,7 @@ import { TEntityNumber } from "../../types";
 import Cell from "../atoms/Cell";
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import { useNavigation } from "@react-navigation/native";
+import Legend from "../atoms/Legend";
 
 interface ItineraryPS {
   loading: boolean
@@ -57,6 +58,14 @@ export default function ItineraryP() {
           </View>
         );
       })}
+      <View style={styles.legends}>
+        <Legend color="red" name="Pont of interest" size={16}    />
+        <Legend color="green" name="Your position" size={16}    />
+        <Legend color="yellow" name="Path" size={16}    />
+        <Legend color="gray" name="Floor" size={16}    />
+        <Legend color="black" name="wall" size={16}    />
+        <Legend color="brown" name="Door" size={16}    />
+      </View>
     </View>
   );
 }
@@ -75,4 +84,10 @@ const useStyles = (theme: ReactNativePaper.Theme) =>
     row: {
       flexDirection: "row",
     },
+    legends: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      alignItems: "flex-start",
+      marginVertical: theme.utils.hp2dp(2),
+    }
   });
