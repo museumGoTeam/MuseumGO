@@ -11,11 +11,22 @@ import PoiP from "./atomic/pages/PoiP";
 import ItineraryP from "./atomic/pages/ItineraryP";
 import { useSelector } from "react-redux";
 import { IAppState } from "./store/types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createStackNavigator();
 
 const Routes = () => {
   const connected = useSelector((state: IAppState) => state.connected)
+  const [isFirstEntry, setIsFirstEntry] = React.useState<boolean | undefined>(undefined)
+
+
+  React.useEffect(() => {
+    (async () => {
+        const firstEntry = await AsyncStorage.getItem('@first_entry')
+        setIsFirstEntry(!firstEntry ? false : true)
+      }
+    )()
+  }, [])
 
   return (
     <PaperProvider theme={theme}>
@@ -28,7 +39,7 @@ const Routes = () => {
             <Stack.Screen name="Splash" component={SplashP} />
           ) : (
               <>
-                <Stack.Screen name="Steps" component={StepsP} />
+                {!isFirstEntry && <Stack.Screen name="Steps" component={StepsP} />}
                 <Stack.Screen name="RoomScan" component={RoomScanP} />
                 <Stack.Screen name="PoiList" component={PoiP} />
                 <Stack.Screen name="Itinerary" component={ItineraryP} />

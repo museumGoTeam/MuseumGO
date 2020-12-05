@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import Typography from "../atoms/Typography";
 import StepsT from "../templates/StepsT";
 import steps from "../../constants/steps";
@@ -17,6 +18,18 @@ const StepsP = () => {
   const styles = useStyles(theme);
   const navigation = useNavigation()
   const [currentStep, setCurrentStep] = React.useState<number>(0)
+
+
+  React.useEffect(() => {
+    (async () => {
+        try {
+          await AsyncStorage.setItem('@first_entry', "true")
+        } catch {
+
+        }
+      }
+    )()
+  }, [])
 
   const onStepChanged = (step: number) => {
     setCurrentStep(step)
