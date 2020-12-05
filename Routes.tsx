@@ -12,6 +12,7 @@ import ItineraryP from "./atomic/pages/ItineraryP";
 import { useSelector } from "react-redux";
 import { IAppState } from "./store/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import PoiScanP from "./atomic/pages/PoiScanP";
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,7 @@ const Routes = () => {
                 <Stack.Screen name="RoomScan" component={RoomScanP} />
                 <Stack.Screen name="PoiList" component={PoiP} />
                 <Stack.Screen name="Itinerary" component={ItineraryP} />
+                <Stack.Screen name="PoiScan" component={PoiScanP} />
               </>
             )}
         </Stack.Navigator>

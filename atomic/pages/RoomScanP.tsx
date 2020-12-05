@@ -10,6 +10,7 @@ const RoomScanP = () => {
     const client = useClient()
     const dispatch = useDispatch()
     const navigation = useNavigation()
+    
     const onRoomScan = async (data: string) => {
         const room = await client.getRoom(data)
         if (room) {

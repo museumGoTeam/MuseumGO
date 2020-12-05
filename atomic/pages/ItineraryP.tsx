@@ -9,6 +9,7 @@ import Cell from "../atoms/Cell";
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import { useNavigation } from "@react-navigation/native";
 import Legend from "../atoms/Legend";
+import Button from "../atoms/Button";
 
 interface ItineraryPS {
   loading: boolean
@@ -41,6 +42,10 @@ export default function ItineraryP() {
     navigation.navigate("PoiList")
   }
 
+  const onArrive = () => {
+    navigation.navigate("PoiScan")
+  }
+
   if (state.loading) return <View />
 
   return (
@@ -66,6 +71,9 @@ export default function ItineraryP() {
         <Legend color="black" name="wall" size={16}    />
         <Legend color="brown" name="Door" size={16}    />
       </View>
+      <View style={styles.buttonFinishContainer}>
+        <Button label="I have arrived" onPress={onArrive} labelStyle={styles.labelButtonFinish} />
+      </View>
     </View>
   );
 }
@@ -78,7 +86,7 @@ const useStyles = (theme: ReactNativePaper.Theme) =>
       paddingHorizontal: theme.utils.wp2dp(2),
     },
     arrowButton: {
-      marginVertical: theme.utils.hp2dp(2),
+      marginVertical: theme.utils.hp2dp(4),
       marginHorizontal: theme.utils.wp2dp(2)
     },
     row: {
@@ -89,5 +97,14 @@ const useStyles = (theme: ReactNativePaper.Theme) =>
       flexWrap: "wrap",
       alignItems: "flex-start",
       marginVertical: theme.utils.hp2dp(2),
+    },
+    buttonFinishContainer: {
+      flex: 1,
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    labelButtonFinish: {
+      color: "white"
     }
   });
