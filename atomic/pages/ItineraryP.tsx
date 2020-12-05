@@ -1,13 +1,13 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { useSelector } from "react-redux";
-import { COL_NUMBER, ROW_NUMBER } from "../../constants";
 import useClient from "../../hooks/useClient";
-import en from "../../locale/en";
 import { IAppState } from "../../store/types";
 import { TEntityNumber } from "../../types";
 import Cell from "../atoms/Cell";
+import { FontAwesome5 } from '@expo/vector-icons'; 
+import { useNavigation } from "@react-navigation/native";
 
 interface ItineraryPS {
   loading: boolean
@@ -24,6 +24,7 @@ export default function ItineraryP() {
   const theme = useTheme();
   const styles = useStyles(theme);
   const client = useClient();
+  const navigation = useNavigation()
   const [state, setState] = React.useState<ItineraryPS>(initialS);
   const { poiSelected, roomLocated } = useSelector((state: IAppState) => state);
 
@@ -34,10 +35,19 @@ export default function ItineraryP() {
     })();
   }, []);
 
+
+  const onBack = () => {
+    navigation.navigate("PoiList")
+  }
+
   if (state.loading) return <View />
 
   return (
     <View style={styles.root}>
+      <TouchableOpacity style={styles.arrowButton} onPress={onBack}>
+        <FontAwesome5 name="arrow-left" size={32} color="black" />
+      </TouchableOpacity>
+
       {state.data && state.data.map((row, rowIndex) => {
         return (
           <View key={rowIndex} style={styles.row}>
@@ -57,6 +67,10 @@ const useStyles = (theme: ReactNativePaper.Theme) =>
       flex: 1,
       paddingTop: theme.utils.hp2dp(8),
       paddingHorizontal: theme.utils.wp2dp(2),
+    },
+    arrowButton: {
+      marginVertical: theme.utils.hp2dp(2),
+      marginHorizontal: theme.utils.wp2dp(2)
     },
     row: {
       flexDirection: "row",
