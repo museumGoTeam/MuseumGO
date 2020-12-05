@@ -20,22 +20,28 @@ const slice = createSlice({
       state.connected = true
     },
     onScan(state, action: PayloadAction<string>) {
-      const dataScanned = action.payload
-      state.dataScanned = dataScanned
+      const data = action.payload
+      state.dataScanned = data
     },
     onLocateRoom(state, action: PayloadAction<IRoom>) {
         const room = action.payload
         Message.info(`You are in the room : ${room.label}`)
         state.roomLocated = room
         state.dataScanned = room._id
+        console.log("LOCATE ROOM")
     },
     onSelectPoi(state, action: PayloadAction<IPOI>) {
         const poi = action.payload
         state.poiSelected = poi
     },
+    onFinish(state) {
+      state.roomLocated = undefined
+      state.poiSelected = undefined 
+      state.dataScanned = undefined
+    }
   },
 });
 
-export const {onInit,onScan, onLocateRoom, onSelectPoi} = slice.actions
+export const {onInit, onScan, onLocateRoom, onSelectPoi, onFinish} = slice.actions
 
 export default slice.reducer

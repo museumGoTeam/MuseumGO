@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useClient from "../../hooks/useClient";
 import { IAppState } from "../../store/types";
 import { TEntityNumber } from "../../types";
@@ -14,6 +14,7 @@ import QRCodeScanT from "../templates/QRCodeScanT";
 import Message from "../atoms/Snackbar";
 import Typography from "../atoms/Typography";
 import {TapGestureHandler} from 'react-native-gesture-handler'
+import { onScan } from "../../store/reducer";
 interface ItineraryPS {
   loading: boolean
   data: TEntityNumber[][] | undefined;
@@ -29,6 +30,7 @@ export default function ItineraryP() {
   const theme = useTheme();
   const styles = useStyles(theme);
   const client = useClient();
+  const dispatch = useDispatch()
   const navigation = useNavigation()
   const [state, setState] = React.useState<ItineraryPS>(initialS);
   const [camFullScreen, setCamFullScreen] = React.useState(false)
@@ -54,8 +56,8 @@ export default function ItineraryP() {
             Message.error("You didn't select this point of interest")
             return
         } 
+        dispatch(onScan(poiID))
         navigation.navigate("PoiDetails")
-
     }
 }
 
