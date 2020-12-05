@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { useSelector } from "react-redux";
 import useClient from "../../hooks/useClient";
@@ -10,7 +10,10 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 import Legend from "../atoms/Legend";
 import Button from "../atoms/Button";
-
+import QRCodeScanT from "../templates/QRCodeScanT";
+import Message from "../atoms/Snackbar";
+import Typography from "../atoms/Typography";
+import {TapGestureHandler} from 'react-native-gesture-handler'
 interface ItineraryPS {
   loading: boolean
   data: TEntityNumber[][] | undefined;
@@ -28,6 +31,7 @@ export default function ItineraryP() {
   const client = useClient();
   const navigation = useNavigation()
   const [state, setState] = React.useState<ItineraryPS>(initialS);
+  const [camFullScreen, setCamFullScreen] = React.useState(false)
   const { poiSelected, roomLocated } = useSelector((state: IAppState) => state);
 
   React.useEffect(() => {
@@ -38,21 +42,34 @@ export default function ItineraryP() {
   }, []);
 
 
+  console.log(camFullScreen)
   const onBack = () => {
     navigation.navigate("PoiList")
   }
 
-  const onArrive = () => {
-    navigation.navigate("PoiScan")
-  }
+  const onPoIScan = (poiID: string) => {
+    console.log('SCAN :', poiID)
+    if (poiSelected) {
+        if (poiSelected._id !== poiID) {
+            Message.error("You didn't select this point of interest")
+            return
+        } 
+        navigation.navigate("PoiDetails")
+
+    }
+}
 
   if (state.loading) return <View />
 
   return (
     <View style={styles.root}>
-      <TouchableOpacity style={styles.arrowButton} onPress={onBack}>
+      {
+        /**
+         *       <TouchableOpacity style={styles.arrowButton} onPress={onBack}>
         <FontAwesome5 name="arrow-left" size={32} color="black" />
       </TouchableOpacity>
+         */
+      }
 
       {state.data && state.data.map((row, rowIndex) => {
         return (
@@ -71,8 +88,11 @@ export default function ItineraryP() {
         <Legend color="black" name="wall" size={16}    />
         <Legend color="brown" name="Door" size={16}    />
       </View>
-      <View style={styles.buttonFinishContainer}>
-        <Button label="I have arrived" onPress={onArrive} labelStyle={styles.labelButtonFinish} />
+      <View>
+      <Typography align="center">Please scan the point of interest {poiSelected?.name} once arrived</Typography>
+      </View>
+      <View style={styles.cameraContainer}>
+        <QRCodeScanT  onScanned={onPoIScan} style={styles.camera} />
       </View>
     </View>
   );
@@ -82,7 +102,7 @@ const useStyles = (theme: ReactNativePaper.Theme) =>
   StyleSheet.create({
     root: {
       flex: 1,
-      paddingTop: theme.utils.hp2dp(8),
+      paddingVertical: theme.utils.hp2dp(8),
       paddingHorizontal: theme.utils.wp2dp(2),
     },
     arrowButton: {
@@ -98,13 +118,10 @@ const useStyles = (theme: ReactNativePaper.Theme) =>
       alignItems: "flex-start",
       marginVertical: theme.utils.hp2dp(2),
     },
-    buttonFinishContainer: {
+    cameraContainer: {
       flex: 1,
-      flexDirection: "row",
-      justifyContent: "center",
-      alignItems: "center"
     },
-    labelButtonFinish: {
-      color: "white"
+    camera: {
+      flex: 1
     }
   });

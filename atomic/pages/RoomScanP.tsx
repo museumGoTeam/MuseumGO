@@ -21,9 +21,7 @@ const RoomScanP = () => {
 
 
     return (
-        <View style={styles.root}>
-            <QRCodeScanT onScanned={onRoomScan} />
-        </View>
+        <QRCodeScanT onScanned={onRoomScan} style={styles.root} />
     )
 }
 

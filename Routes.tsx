@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { IAppState } from "./store/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import PoiScanP from "./atomic/pages/PoiScanP";
+import PoiDetailsP from "./atomic/pages/PoiDetailsP";
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,7 @@ const Routes = () => {
                 <Stack.Screen name="PoiList" component={PoiP} />
                 <Stack.Screen name="Itinerary" component={ItineraryP} />
                 <Stack.Screen name="PoiScan" component={PoiScanP} />
+                <Stack.Screen name="PoiDetails" component={PoiDetailsP} />
               </>
             )}
         </Stack.Navigator>

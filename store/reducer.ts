@@ -9,6 +9,7 @@ const initialState: IAppState = {
   connected: false,
   poiSelected: undefined,
   roomLocated: undefined,
+  dataScanned: undefined
 };
 
 const slice = createSlice({
@@ -18,10 +19,15 @@ const slice = createSlice({
     onInit(state) {
       state.connected = true
     },
+    onScan(state, action: PayloadAction<string>) {
+      const dataScanned = action.payload
+      state.dataScanned = dataScanned
+    },
     onLocateRoom(state, action: PayloadAction<IRoom>) {
         const room = action.payload
         Message.info(`You are in the room : ${room.label}`)
         state.roomLocated = room
+        state.dataScanned = room._id
     },
     onSelectPoi(state, action: PayloadAction<IPOI>) {
         const poi = action.payload
@@ -30,6 +36,6 @@ const slice = createSlice({
   },
 });
 
-export const {onInit, onLocateRoom, onSelectPoi} = slice.actions
+export const {onInit,onScan, onLocateRoom, onSelectPoi} = slice.actions
 
 export default slice.reducer
